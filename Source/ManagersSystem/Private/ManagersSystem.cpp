@@ -1,0 +1,71 @@
+﻿// Copyright shenkns Managers System Developed With Unreal Engine. All Rights Reserved 2022.
+
+#include "ManagersSystem.h"
+
+#include "Module/ManagersSystemModule.h"
+#include "LogSystem.h"
+#include "Module/ManagersSystemSettings.h"
+
+UManagersSystem* UManagersSystem::Get()
+{
+	return GEngine->GetWorld()->GetGameInstance()->GetSubsystem<UManagersSystem>();
+}
+
+void UManagersSystem::Initialize(FSubsystemCollectionBase& Collection)
+{
+	Super::Initialize(Collection);
+
+	DEBUG_MESSAGE(GetDefault<UManagersSystemSettings>()->bShowDebugMessages, LogManagersSystem, "Profile System Initialization")
+
+	InitializeManagers();
+}
+
+void UManagersSystem::InitializeManagers()
+{
+	// Managers Initialization
+
+	// Validate ProfileSystem Settings
+	const UManagersSystemSettings* Settings = GetDefault<UManagersSystemSettings>();
+	if(!Settings) return;
+
+	for(const UManager* TemplateManager : Settings->Managers)
+	{
+		if(!TemplateManager) continue;
+		if(GetManager(TemplateManager->GetClass())) continue;
+
+		UManager* Manager = DuplicateObject<UManager>(TemplateManager, this);
+		
+		Managers.Add(Manager);
+	}
+
+	for(TSoftClassPtr<UManager> ManagerSoftClass : Settings->DefaultManagers)
+	{
+		UClass* ManagerClass = ManagerSoftClass.LoadSynchronous();
+		if(!ManagerClass) continue;
+		
+		if(GetManager(ManagerClass)) continue;
+
+		UManager* Manager = NewObject<UManager>(this, ManagerClass);
+		
+		Managers.Add(Manager);
+	}
+
+	for(UManager* Manager : Managers)
+	{
+		Manager->InitManager();
+	}
+}
+
+// Profile Manager Getter
+UManager* UManagersSystem::GetManager(TSubclassOf<UManager> Class) const
+{
+	if(!Class) Class = UManager::StaticClass();
+	
+	// Find Manager
+	UManager* const* Out = Managers.FindByPredicate([Class](const UManager* Src)
+	{
+		return Src && Src->GetClass() == Class;
+	});
+
+	return Out ? *Out : nullptr;
+}
