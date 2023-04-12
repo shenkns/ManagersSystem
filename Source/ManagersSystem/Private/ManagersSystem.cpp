@@ -8,7 +8,32 @@
 
 UManagersSystem* UManagersSystem::Get()
 {
-	return GEngine->GetWorld()->GetGameInstance()->GetSubsystem<UManagersSystem>();
+	if(!GEngine) return nullptr;
+
+	if(const UWorld* World = GEngine->GetWorld())
+	{
+		if(const UGameInstance* GameInstance = World->GetGameInstance())
+		{
+			return GameInstance->GetSubsystem<UManagersSystem>();
+		}
+	}
+
+	return nullptr;
+}
+
+UManagersSystem* UManagersSystem::Get(UObject* WorldContext)
+{
+	if(!WorldContext) return nullptr;
+
+	if(const UWorld* World = WorldContext->GetWorld())
+	{
+		if(const UGameInstance* GameInstance = World->GetGameInstance())
+		{
+			return GameInstance->GetSubsystem<UManagersSystem>();
+		}
+	}
+
+	return nullptr;
 }
 
 void UManagersSystem::Initialize(FSubsystemCollectionBase& Collection)
