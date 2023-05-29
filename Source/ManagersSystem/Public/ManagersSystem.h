@@ -22,7 +22,7 @@ protected:
 public:
 
 	static UManagersSystem* Get();
-	static UManagersSystem* Get(UObject* WorldContext);
+	static UManagersSystem* Get(const UObject* WorldContext);
 
 	// Managers Getters
 	UFUNCTION(BlueprintPure, Category = "ManagersSystem", meta = (CompactNodeTitle = "Manager", DeterminesOutputType = "Class"))

@@ -21,7 +21,7 @@ UManagersSystem* UManagersSystem::Get()
 	return nullptr;
 }
 
-UManagersSystem* UManagersSystem::Get(UObject* WorldContext)
+UManagersSystem* UManagersSystem::Get(const UObject* WorldContext)
 {
 	if(!WorldContext) return nullptr;
 
