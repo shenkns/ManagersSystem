@@ -35,5 +35,5 @@ void UManagersSystemSettings::PostEditChangeProperty(FPropertyChangedEvent& Prop
 void UManagersSystemSettings::SaveSettings()
 {
 	SaveConfig(CPF_Config, *GetDefaultConfigFilename(), new FConfigCacheIni(EConfigCacheType::DiskBacked), true);
-	TryUpdateDefaultConfigFile();
+	UpdateDefaultConfigFile();
 }

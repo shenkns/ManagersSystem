@@ -4,6 +4,7 @@
 
 #include "ManagersSystem.h"
 #include "LogSystem.h"
+#include "Module/ManagersSystemModule.h"
 #include "Module/ManagersSystemSettings.h"
 
 void UManager::InitManager()
