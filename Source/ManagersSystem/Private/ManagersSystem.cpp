@@ -53,16 +53,6 @@ void UManagersSystem::InitializeManagers()
 	const UManagersSystemSettings* Settings = GetDefault<UManagersSystemSettings>();
 	if(!Settings) return;
 
-	for(const UManager* TemplateManager : Settings->Managers)
-	{
-		if(!TemplateManager) continue;
-		if(GetManager(TemplateManager->GetClass())) continue;
-
-		UManager* Manager = DuplicateObject<UManager>(TemplateManager, this);
-		
-		Managers.Add(Manager);
-	}
-
 	for(TSoftClassPtr<UManager> ManagerSoftClass : Settings->DefaultManagers)
 	{
 		UClass* ManagerClass = ManagerSoftClass.LoadSynchronous();
@@ -71,6 +61,16 @@ void UManagersSystem::InitializeManagers()
 		if(GetManager(ManagerClass)) continue;
 
 		UManager* Manager = NewObject<UManager>(this, ManagerClass);
+		
+		Managers.Add(Manager);
+	}
+
+	for(const UManager* TemplateManager : Settings->Managers)
+	{
+		if(!TemplateManager) continue;
+		if(GetManager(TemplateManager->GetClass())) continue;
+
+		UManager* Manager = DuplicateObject<UManager>(TemplateManager, this);
 		
 		Managers.Add(Manager);
 	}
