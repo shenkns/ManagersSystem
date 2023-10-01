@@ -21,8 +21,11 @@ protected:
 
 public:
 
+	UFUNCTION(BlueprintPure, Category = "ManagersSystem", meta = (CompactNodeTitle = "System"))
 	static UManagersSystem* Get();
-	static UManagersSystem* Get(const UObject* WorldContext);
+
+	UFUNCTION(BlueprintPure, Category = "ManagersSystem", meta = (CompactNodeTitle = "System"))
+	static UManagersSystem* GetWithContext(const UObject* WorldContext);
 
 	// Managers Getters
 	UFUNCTION(BlueprintPure, Category = "ManagersSystem", meta = (CompactNodeTitle = "Manager", DeterminesOutputType = "Class"))
