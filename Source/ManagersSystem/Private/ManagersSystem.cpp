@@ -1,10 +1,13 @@
-﻿// Copyright shenkns Managers System Developed With Unreal Engine. All Rights Reserved 2022.
+﻿// Copyright shenkns Managers System Developed With Unreal Engine. All Rights Reserved 2023.
 
 #include "ManagersSystem.h"
 
+#include "Log.h"
 #include "Module/ManagersSystemModule.h"
-#include "LogSystem.h"
+#include "Log/Details/LocalLogCategory.h"
 #include "Module/ManagersSystemSettings.h"
+
+DEFINE_LOG_CATEGORY_LOCAL(LogManagersSystem);
 
 UManagersSystem* UManagersSystem::Get()
 {
@@ -40,7 +43,7 @@ void UManagersSystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
 
-	DEBUG_MESSAGE(GetDefault<UManagersSystemSettings>()->bShowDebugMessages, LogManagersSystem, "Profile System Initialization")
+	LOG(Display, "Managers System Initialization");
 
 	InitializeManagers();
 }

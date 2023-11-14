@@ -1,7 +1,8 @@
-// Copyright shenkns Managers System Developed With Unreal Engine. All Rights Reserved 2022.
+// Copyright shenkns Managers System Developed With Unreal Engine. All Rights Reserved 2023.
 
 #include "Module/ManagersSystemModule.h"
 
+#include "Log.h"
 #include "Module/ManagersSystemSettings.h"
 #include "LogSystem.h"
 
@@ -12,6 +13,7 @@
 IMPLEMENT_MODULE(FManagersSystemModule, ManagersSystem)
 
 MANAGERSSYSTEM_API DEFINE_LOG_CATEGORY(LogManagersSystem);
+DEFINE_LOG_CATEGORY_LOCAL(LogManagersSystem);
 
 void FManagersSystemModule::StartupModule()
 {
@@ -40,7 +42,7 @@ void FManagersSystemModule::RegisterSystemSettings() const
 			GetMutableDefault<UManagersSystemSettings>()
 		);
 
-		LOG_STATIC(LogManagersSystemSettings, "Managers System Settings Registered")
+		LOG(Display, "Managers System Settings Registered");
 	}
 }
 
@@ -50,7 +52,7 @@ void FManagersSystemModule::UnregisterSystemSettings() const
 	{
 		SettingsModule->UnregisterSettings("Project", "Plugins", "Managers System");
 
-		LOG_STATIC(LogManagersSystemSettings, "Managers System Settings Unregistered")
+		LOG(Display, "Managers System Settings Unregistered");
 	}
 }
 #endif

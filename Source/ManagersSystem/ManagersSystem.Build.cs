@@ -7,6 +7,7 @@ public class ManagersSystem : ModuleRules
 	public ManagersSystem(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
+		CppStandard = CppStandardVersion.Cpp17;
 
 		PrivateIncludePaths.AddRange(
 			new string[] 

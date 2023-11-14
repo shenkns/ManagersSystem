@@ -1,15 +1,17 @@
-﻿// Copyright shenkns Managers System Developed With Unreal Engine. All Rights Reserved 2022.
+﻿// Copyright shenkns Managers System Developed With Unreal Engine. All Rights Reserved 2023.
 
 #include "Managers/Manager.h"
 
+#include "Log.h"
 #include "ManagersSystem.h"
-#include "LogSystem.h"
+#include "Log/Details/LocalLogCategory.h"
 #include "Module/ManagersSystemModule.h"
-#include "Module/ManagersSystemSettings.h"
+
+DEFINE_LOG_CATEGORY_LOCAL(LogManagersSystem);
 
 void UManager::InitManager()
 {
-	DEBUG_MESSAGE(GetDefault<UManagersSystemSettings>()->bShowDebugMessages, LogManagersSystem, "%s Initialization", *GetName())
+	LOG(Display, "%s Initialization", *GetName());
 	
 	Init();
 }

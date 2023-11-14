@@ -1,11 +1,13 @@
-﻿// Copyright shenkns Managers System Developed With Unreal Engine. All Rights Reserved 2022.
+﻿// Copyright shenkns Managers System Developed With Unreal Engine. All Rights Reserved 2023.
 
 #include "Module/ManagersSystemSettings.h"
 
+#include "Log.h"
 #include "Libs/SerializationSystemLibrary.h"
-#include "LogSystem.h"
+#include "Log/Details/LocalLogCategory.h"
 
 MANAGERSSYSTEM_API DEFINE_LOG_CATEGORY(LogManagersSystemSettings);
+DEFINE_LOG_CATEGORY_LOCAL(LogManagersSystemSettings);
 
 void UManagersSystemSettings::PostInitProperties()
 {
@@ -13,7 +15,7 @@ void UManagersSystemSettings::PostInitProperties()
 	
 	Managers = USerializationSystemLibrary::ConvertSaveDataToObjects<UManager>(ManagersSaveData, this);
 
-	LOG(LogTemp, "Managers Objects Settings Loaded")
+	LOG(Display, "Managers Objects Settings Loaded");
 }
 
 #if UE_EDITOR
@@ -27,7 +29,7 @@ void UManagersSystemSettings::PostEditChangeProperty(FPropertyChangedEvent& Prop
 
 		SaveSettings();
 
-		LOG(LogManagersSystemSettings, "Profile Objects Settings Saved To Config")
+		LOG(Display, "Profile Objects Settings Saved To Config");
 	}
 }
 #endif
